@@ -19,42 +19,46 @@ public class UsuarioService {
 
     private final UsuarioClient client;
 
+
     public UsuarioDTOResponse salvaUsuario(UsuarioDTORequest usuarioDTO) {
 
         return client.salvaUsuario(usuarioDTO);
     }
 
-    public String loginUsuario(LoginRequestDTO dto){
+    public String loginUsuario(LoginRequestDTO dto) {
         return client.login(dto);
     }
 
-    public UsuarioDTOResponse buscarUsuarioPorEmail(String email, String token){
-
+    public UsuarioDTOResponse buscarUsuarioPorEmail(String email, String token) {
         return client.buscaUsuarioPorEmail(email, token);
     }
 
-    public void deleteUsuarioPorEmail(String email, String token){
 
-         client.deletaUsuarioPorEmail(email, token);
+    public void deletaUsuarioPorEmail(String email, String token) {
+
+        client.deletaUsuarioPorEmail(email, token);
     }
 
     public UsuarioDTOResponse atualizaDadosUsuario(String token, UsuarioDTORequest dto) {
-        return client.atualizaDadosUsuario(dto, token);
+        return client.atualizDadoUsuario(dto, token);
     }
 
-    public EnderecoDTOResponse atualizaEndereco(Long idEndereco, EnderecoDTORequest dto, String token) {
+    public EnderecoDTOResponse atualizaEndereco(Long idEndereco, EnderecoDTORequest enderecoDTO,
+                                                String token) {
 
-       return client.atualizaEndereco(dto, idEndereco, token);
+        return client.atualizaEndereco(enderecoDTO, idEndereco, token);
+
     }
 
     public TelefoneDTOResponse atualizaTelefone(Long idTelefone, TelefoneDTORequest dto, String token) {
 
         return client.atualizaTelefone(dto, idTelefone, token);
+
     }
 
     public EnderecoDTOResponse cadastraEndereco(String token, EnderecoDTORequest dto) {
 
-        return client.cadastraEndereco(dto, token);
+        return client.cadastaEndereco(dto, token);
     }
 
     public TelefoneDTOResponse cadastraTelefone(String token, TelefoneDTORequest dto) {
