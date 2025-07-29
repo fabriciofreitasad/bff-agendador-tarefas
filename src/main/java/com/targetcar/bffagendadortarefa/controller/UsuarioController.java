@@ -11,6 +11,7 @@ import com.targetcar.bffagendadortarefa.business.dto.out.UsuarioDTOResponse;
 import com.targetcar.bffagendadortarefa.business.dto.out.ViaCepDTOResponse;
 import com.targetcar.bffagendadortarefa.infrastructure.security.SecurityConfig;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -133,12 +134,17 @@ public class UsuarioController {
 
 
     @GetMapping("/endereco/{cep}")
-    @Operation(summary = "Busca endereço pelo cep",
-            description = "Busca dados de endereço recebendo um cep")
-    @ApiResponse(responseCode = "200", description = "Dados de endereço retornados com sucesso")
-    @ApiResponse(responseCode = "400", description = "Cep inválido")
-    @ApiResponse(responseCode = "500", description = "Erro de servidor")
-    public ResponseEntity<ViaCepDTOResponse> buscarEndereco(@PathVariable("cep") String cep){
+    @Operation(
+            summary = "Buscar dados de endereço por CEP",
+            description = "Consulta os dados de endereço a partir do CEP informado, utilizando o serviço ViaCEP"
+    )
+    @ApiResponse(responseCode = "200", description = "Endereço encontrado com sucesso")
+    @ApiResponse(responseCode = "400", description = "CEP inválido")
+    @ApiResponse(responseCode = "404", description = "Endereço não encontrado para o CEP informado")
+    @ApiResponse(responseCode = "500", description = "Erro interno no servidor")
+    public ResponseEntity<ViaCepDTOResponse> buscarEndereco(
+            @Parameter(description = "CEP no formato 00000000", required = true)
+            @PathVariable("cep") String cep) {
         return ResponseEntity.ok(usuarioService.buscarEnderecoPorCep(cep));
     }
 
