@@ -8,9 +8,11 @@ import com.targetcar.bffagendadortarefa.business.dto.in.UsuarioDTORequest;
 import com.targetcar.bffagendadortarefa.business.dto.out.EnderecoDTOResponse;
 import com.targetcar.bffagendadortarefa.business.dto.out.TelefoneDTOResponse;
 import com.targetcar.bffagendadortarefa.business.dto.out.UsuarioDTOResponse;
-
+import com.targetcar.bffagendadortarefa.business.dto.out.ViaCepDTOResponse;
+import com.targetcar.bffagendadortarefa.infrastructure.security.SecurityConfig;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +21,8 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/usuario")
 @RequiredArgsConstructor
-@Tag(name = "Usuario", description = "Cadastro e login e usuarios")
+@Tag(name = "Usuário", description = "Cadastro e login e usuários")
+@SecurityRequirement(name = SecurityConfig.SECURITY_SCHEME)
 public class UsuarioController {
 
     private final UsuarioService usuarioService;
@@ -127,4 +130,16 @@ public class UsuarioController {
                                                                 @RequestHeader(value = "Authorization", required=false) String token){
         return ResponseEntity.ok(usuarioService.cadastraTelefone(token, dto));
     }
+
+
+    @GetMapping("/endereco/{cep}")
+    @Operation(summary = "Busca endereço pelo cep",
+            description = "Busca dados de endereço recebendo um cep")
+    @ApiResponse(responseCode = "200", description = "Dados de endereço retornados com sucesso")
+    @ApiResponse(responseCode = "400", description = "Cep inválido")
+    @ApiResponse(responseCode = "500", description = "Erro de servidor")
+    public ResponseEntity<ViaCepDTOResponse> buscarEndereco(@PathVariable("cep") String cep){
+        return ResponseEntity.ok(usuarioService.buscarEnderecoPorCep(cep));
+    }
+
 }

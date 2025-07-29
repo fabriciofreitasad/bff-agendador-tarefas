@@ -21,11 +21,11 @@ import java.util.List;
 @RestController
 @RequestMapping("/tarefas")
 @RequiredArgsConstructor
-@Tag(name = "Tarefas", description = "Cadastro tarefas de usuarios")
+@Tag(name = "Tarefas", description = "Cadastra tarefas de usuários")
 @SecurityRequirement(name = SecurityConfig.SECURITY_SCHEME)
 public class TarefasController {
 
-    private final TarefaService tarefaService;
+    private final TarefaService tarefasService;
 
     @PostMapping
     @Operation(summary = "Salvar Tarefas de Usuários", description = "Cria uma nova tarefa")
@@ -33,7 +33,7 @@ public class TarefasController {
     @ApiResponse(responseCode = "500", description = "Erro de servidor")
     public ResponseEntity<TarefasDTOResponse> gravarTarefas(@RequestBody TarefasDTORequest dto,
                                                             @RequestHeader(value = "Authorization", required = false) String token) {
-        return ResponseEntity.ok(tarefaService.gravarTarefa(token, dto));
+        return ResponseEntity.ok(tarefasService.gravarTarefa(token, dto));
     }
 
     @GetMapping("/eventos")
@@ -46,7 +46,7 @@ public class TarefasController {
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dataFinal,
             @RequestHeader(value = "Authorization", required=false) String token) {
 
-        return ResponseEntity.ok(tarefaService.buscaTarefasAgendadasPorPeriodo(dataInicial, dataFinal, token));
+        return ResponseEntity.ok(tarefasService.buscaTarefasAgendadasPorPeriodo(dataInicial, dataFinal, token));
     }
 
     @GetMapping
@@ -57,7 +57,7 @@ public class TarefasController {
     @ApiResponse(responseCode = "403", description = "Email não encontrado")
     @ApiResponse(responseCode = "401", description = "Usuário não autorizado")
     public ResponseEntity<List<TarefasDTOResponse>> buscaTarefasPorEmail(@RequestHeader(value = "Authorization", required=false) String token) {
-        List<TarefasDTOResponse> tarefas = tarefaService.buscaTarefasPorEmail(token);
+        List<TarefasDTOResponse> tarefas = tarefasService.buscaTarefasPorEmail(token);
         return ResponseEntity.ok(tarefas);
     }
 
@@ -70,7 +70,7 @@ public class TarefasController {
     public ResponseEntity<Void> deletaTarefaPorId(@RequestParam("id") String id,
                                                   @RequestHeader(value = "Authorization", required=false) String token) {
 
-        tarefaService.deletaTarefaPorId(id, token);
+        tarefasService.deletaTarefaPorId(id, token);
 
         return ResponseEntity.ok().build();
     }
@@ -84,7 +84,7 @@ public class TarefasController {
     public ResponseEntity<TarefasDTOResponse> alteraStatusNotificacao(@RequestParam("status") StatusNotificacaoEnum status,
                                                                       @RequestParam("id") String id,
                                                                       @RequestHeader(value = "Authorization", required=false) String token) {
-        return ResponseEntity.ok(tarefaService.alteraStatus(status, id, token));
+        return ResponseEntity.ok(tarefasService.alteraStatus(status, id, token));
     }
 
     @PutMapping
@@ -96,6 +96,8 @@ public class TarefasController {
     public ResponseEntity<TarefasDTOResponse> updateTarefas(@RequestBody TarefasDTORequest dto,
                                                             @RequestParam("id") String id,
                                                             @RequestHeader(value = "Authorization", required=false) String token) {
-        return ResponseEntity.ok(tarefaService.updateTarefas(dto, id, token));
+        return ResponseEntity.ok(tarefasService.updateTarefas(dto, id, token));
     }
+
+
 }

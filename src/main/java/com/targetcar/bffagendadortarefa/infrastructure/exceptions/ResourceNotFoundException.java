@@ -1,11 +1,12 @@
-package com.targetcar.usuario.infrastructure.exceptions;
+package com.targetcar.bffagendadortarefa.infrastructure.exceptions;
 
 public class ResourceNotFoundException extends RuntimeException{
-    public ResourceNotFoundException(String mensagem) {
+
+    public ResourceNotFoundException(String mensagem){
         super(mensagem);
     }
 
-    public ResourceNotFoundException(String mensagem, Throwable throwable) {
+    public ResourceNotFoundException(String mensagem, Throwable throwable){
         super(mensagem, throwable);
     }
 }

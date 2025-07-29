@@ -25,10 +25,14 @@ public class TarefaService {
                                                                     String token) {
 
         return tarefasClient.buscaListaDeTarefasPorPeriodo(dataInicial, dataFinal, token);
+
+
     }
 
     public List<TarefasDTOResponse> buscaTarefasPorEmail(String token) {
+
         return tarefasClient.buscaTarefasPorEmail(token);
+
     }
 
     public void deletaTarefaPorId(String id, String token) {

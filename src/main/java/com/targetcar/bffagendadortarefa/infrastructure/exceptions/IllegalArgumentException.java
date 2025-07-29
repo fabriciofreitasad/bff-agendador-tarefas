@@ -1,12 +1,12 @@
-package com.targetcar.usuario.infrastructure.exceptions;
+package com.targetcar.bffagendadortarefa.infrastructure.exceptions;
 
 public class IllegalArgumentException extends RuntimeException {
 
-    public IllegalArgumentException (String mensagem){
+    public IllegalArgumentException(String mensagem) {
         super(mensagem);
     }
 
-    public IllegalArgumentException (String mensagem, Throwable throwable){
+    public IllegalArgumentException(String mensagem, Throwable throwable) {
         super(mensagem, throwable);
     }
 }

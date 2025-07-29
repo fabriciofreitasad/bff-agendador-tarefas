@@ -9,10 +9,10 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class EmailService {
 
-    private final EmailClient client;
+    private final EmailClient emailClient;
 
-     public void enviaEmail(TarefasDTOResponse dto) {
-        client.enviarEmail(dto);
+    public void enviaEmail(TarefasDTOResponse dto) {
+        emailClient.enviarEmail(dto);
     }
 
 }

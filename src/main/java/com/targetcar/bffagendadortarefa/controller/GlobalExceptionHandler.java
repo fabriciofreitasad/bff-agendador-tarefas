@@ -1,8 +1,9 @@
-package com.targetcar.usuario.controller;
+package com.targetcar.bffagendadortarefa.controller;
 
-import com.targetcar.usuario.infrastructure.exceptions.ConflictException;
-import com.targetcar.usuario.infrastructure.exceptions.ResourceNotFoundException;
-import com.targetcar.usuario.infrastructure.exceptions.UnauthorizedException;
+import com.targetcar.bffagendadortarefa.infrastructure.exceptions.ConflictException;
+import com.targetcar.bffagendadortarefa.infrastructure.exceptions.ResourceNotFoundException;
+import com.targetcar.bffagendadortarefa.infrastructure.exceptions.UnauthorizedException;
+import com.targetcar.bffagendadortarefa.infrastructure.exceptions.IllegalArgumentException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -17,12 +18,17 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(ConflictException.class)
-    public ResponseEntity<String> handleConflicException(ConflictException ex){
-        return new ResponseEntity<>(ex.getMessage(),HttpStatus.CONFLICT);
+    public ResponseEntity<String> handleConflictException(ConflictException ex){
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.CONFLICT);
     }
 
     @ExceptionHandler(UnauthorizedException.class)
     public ResponseEntity<String> handleUnauthorizedException(UnauthorizedException ex){
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.UNAUTHORIZED);
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<String> handleIllegalArgumentException(IllegalArgumentException ex){
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
 }

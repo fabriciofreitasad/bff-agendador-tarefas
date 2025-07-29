@@ -1,8 +1,6 @@
-package com.targetcar.usuario.infrastructure.exceptions;
+package com.targetcar.bffagendadortarefa.infrastructure.exceptions;
 
-import org.springframework.security.core.AuthenticationException;
-
-public class UnauthorizedException extends AuthenticationException {
+public class UnauthorizedException extends RuntimeException {
 
     public UnauthorizedException(String mensagem){
         super(mensagem);
